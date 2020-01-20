@@ -220,30 +220,30 @@ def main():
 
                 #Printing the information
                 if False :
-                    print "Counter: " + str(counter)
-                    print "iPath:    " + input_path
-                    print "oPath:    " + output_path
-                    print "Roll:    " + str(roll)
-                    print "Pitch:   " + str(pitch)
-                    print "Yaw:     " + str(yaw)
-                    print "x:       " + str(face_x)
-                    print "y:       " + str(face_y)
-                    print "w:       " + str(face_w)
-                    print "h:       " + str(face_h)
-                    print "genre:" + str(row[9])
-                    print ""
+                    print( "Counter: " + str(counter))
+                    print( "iPath:    " + input_path)
+                    print( "oPath:    " + output_path)
+                    print( "Roll:    " + str(roll))
+                    print( "Pitch:   " + str(pitch))
+                    print( "Yaw:     " + str(yaw))
+                    print( "x:       " + str(face_x))
+                    print( "y:       " + str(face_y))
+                    print( "w:       " + str(face_w))
+                    print( "h:       " + str(face_h))
+                    print( "genre:" + str(row[9]))
+                    print( "")
 
                 if counter % 1000 == 0 :
-                    print counter
+                    print( counter)
                 if counter > 1000000:
                     break
 
             #if the file does not exits it return an exception
         else:
             raise ValueError('Error: I cannot find the file specified: ' + str(input_path))
-    print fidm
+    print( fidm)
     #Once finished the iteration it closes the database
-    print 'len=', len(md)
+    print(( 'len=', len(md)))
     a = np.asarray(imgs)
     cf = 0
     pbkey = defaultdict(lambda:0)
@@ -259,15 +259,15 @@ def main():
             md[ix].feats[featid-1,1] = featy
             cf += 1
             if False :
-                print '\nix=', ix, ' fid= ' , fid, ' featx=', featx, ' featy=', featy
-                print ' facex ' , md[ix].facex, '\n'
-                print ' facey ' , md[ix].facey, '\n'
-                print ' facew ' , md[ix].facew, '\n'
-                print ' faceh ' , md[ix].faceh, '\n'
-                print ' featid = ', featid, '\n'
-                print ' shape = ', md[ix].shape, '\n'
-                print ' rox ', row[2], ',', row[3]
-                print np.sum(md[ix].feats > 0)
+                print( ( '\nix=', ix, ' fid= ' , fid, ' featx=', featx, ' featy=', featy ))
+                print( ( ' facex ' , md[ix].facex, '\n' ))
+                print( ( ' facey ' , md[ix].facey, '\n' ))
+                print( ( ' facew ' , md[ix].facew, '\n' ))
+                print( ( ' faceh ' , md[ix].faceh, '\n' ))
+                print( ( ' featid = ', featid, '\n' ))
+                print( ( ' shape = ', md[ix].shape, '\n' ))
+                print( ( ' rox ', row[2], ',', row[3] ))
+                print( ( np.sum(md[ix].feats > 0) ))
             if False and np.sum(md[ix].feats > 0) >= 40 :
                 fig = plt.figure()
                 fig.add_subplot(1,2,1)
@@ -304,21 +304,21 @@ def main():
 
             
         except ZeroDivisionError :
-            print 'fid ', fid , ' ix ', ix, ' face_w = 0'
+            print( ( 'fid ', fid , ' ix ', ix, ' face_w = 0' ))
         except KeyError :
-            print 'pb key fid ', fid
+            print( ( 'pb key fid ', fid ))
             pbkey[fid] += 1
         if i > 1000000 :
             break
-    print cf
-    print 'len(d) ', len(pbkey)
-    print 'len(ind) ', len(ind)
+    print( ( cf ))
+    print( ( 'len(d) ', len(pbkey) ))
+    print( ( 'len(ind) ', len(ind) ))
     c.close()
-    #print a.shape
+    #print( ( a.shape ))
     np.save(alfw + '/aflw_imgs.npy', a)
     np.save(alfw + '/aflw_imgs2.npy', np.asarray(imgs2))
     np.save(alfw + '/aflw_imgsSmall.npy', np.asarray(imgsSmall))
-    #print md
+    #print( ( md ))
     pickle.dump(md,  open(alfw + "/md.pckl", "wb" ))
 
 
@@ -326,7 +326,7 @@ def load(n = 99999) :
     ims = np.load(alfw + '/aflw_imgs.npy')
     ims2 = np.load(alfw + '/aflw_imgs2.npy')
     imsSmall = np.load(alfw + '/aflw_imgsSmall.npy')
-    #print md
+    #print( ( md ))
     md = pickle.load(open(alfw + "/md.pckl", "rb" ))
     return ims[0:n, :, :].astype(np.float32), md[0:n], ims2[0:n, :, : ].astype(np.float32), imsSmall[0:n, :, : ].astype(np.float32)
 
@@ -334,7 +334,7 @@ def draw(im, p, ff = None) :
     plt.imshow(im) #[:, :, ::-1])
     gg = p[:,0] >= 0
     p = p[gg]
-    #print md[ix].feats
+    #print( ( md[ix].feats ))
     plt.scatter(x=p[:,0], y=p[:,1], c='r', s=40)
     nm = goodmarksnames
     for i in range(0, p.shape[0]) :
@@ -360,7 +360,7 @@ def draw(im, p, ff = None) :
     
 def show(im, md, ix) :
     plt.imshow(im[ix, :, :, ::-1])
-    #print md[ix].feats
+    #print( ( md[ix].feats ))
     plt.scatter(x=md[ix].feats[:,0], y=md[ix].feats[:,1], c='r', s=40)
     #plt.plot(md[ix].feats[:,0], md[ix].feats[:,1], 'o')
     plt.show()
@@ -376,24 +376,24 @@ def split(im, feats, hog, mmm, im2, md, small) :
     return im[0:n,:,:,:], feats[0:n, :, :], hog[0:n, :], mmm[0:n, :, :], im[n:,:,:,:], feats[n:, :, :], hog[n:,:], mmm[n:,:,:], im2[0:n, : :], im2[n:, :, :], md[0:n], md[n:],  small[0:n, : :], small[n:, :, :]
 
 def prepare(n = 99999, onlyvisible = False) :
-    print 'loading..'
+    print( ( 'loading..' ))
     im, md, im2, small = load(n)
-    print 'im.shape: ', im.shape
+    print( ( 'im.shape: ', im.shape ))
     feats = np.asarray([f.feats for f in md])
     hogs = np.asarray([f.hog for f in md])
-    print 'feats.shape:', feats.shape
-    print 'hogs.shape:', hogs.shape
+    print( ( 'feats.shape:', feats.shape ))
+    print( ( 'hogs.shape:', hogs.shape ))
     idx = { k : i for i, k in enumerate(lmnames)}
     lmidx = np.asarray([ l in goodmarksnames for l in lmnames])
     goodmarks = np.asarray([ feats[:,idx[mn],:] >= 0 for mn in goodmarksnames])
     'goodmarks ', goodmarks.shape
     mask = np.logical_not(np.sum(np.logical_not(goodmarks), axis=(0, 2))) # since not(not(a) or not(b)) = a and b
-    #print 'assert ', np.sum(mask - np.prod(goodmarks,  axis=(0, 2)))
-    #print 'mask ', mask.shape
-    print np.sum(mask), np.prod(mask.shape)
+    #print( ( 'assert ', np.sum(mask - np.prod(goodmarks,  axis=(0, 2))) ))
+    #print( ( 'mask ', mask.shape ))
+    print( ( np.sum(mask), np.prod(mask.shape) ))
     mmm = goodmarks.transpose((1,0,2))
-    #print 'mmm ', mmm.shape
-    #print np.sum(mmm)
+    #print( ( 'mmm ', mmm.shape ))
+    #print( ( np.sum(mmm) ))
     if onlyvisible:
         md = [ e for i, e in enumerate(md) if mask[i] == True]
         rfeats = feats[mask, :, :][:,lmidx,:]
@@ -409,42 +409,42 @@ def prepare(n = 99999, onlyvisible = False) :
         rim2 = im2
         rimsmall = small
         mmm = mmm
-    #print 'rim.shape: ', rim.shape
-    #print 'rfeats.shape:', rfeats.shape
-    #print 'rhogs.shape:', rhogs.shape
+    #print( ( 'rim.shape: ', rim.shape ))
+    #print( ( 'rfeats.shape:', rfeats.shape ))
+    #print( ( 'rhogs.shape:', rhogs.shape ))
     imtr, ytrain, Xtrain, mmm, imtst, ytest, Xtest, mmmt, im2tr, im2tst, mdtr, mdtst, smalltr, smalltst = split(rim, rfeats, rhogs, mmm, rim2, md, rimsmall)
 
     mean, std  = np.mean(Xtrain, axis=0), np.std(Xtrain, axis=0)
-    #print Xtrain.shape
-    #print mean.shape
+    #print( ( Xtrain.shape ))
+    #print( ( mean.shape ))
     meany, stdy  = np.mean(ytrain, axis=0), np.std(ytrain, axis=0)
-    print 'ytrain.shape ', ytrain.shape
-    #print 'meany.shape ', meany.shape
-    #print 'stdy.shape ', stdy.shape
+    print( ( 'ytrain.shape ', ytrain.shape ))
+    #print( ( 'meany.shape ', meany.shape ))
+    #print( ( 'stdy.shape ', stdy.shape ))
     meani, stdi  = np.mean(imtr), np.std(imtst)
-    #print imtr.shape
-    #print meani.shape
-    #print 'mmm ', mmm.shape
+    #print( ( imtr.shape ))
+    #print( ( meani.shape ))
+    #print( ( 'mmm ', mmm.shape ))
     def scale(im, y, x) :
         return im / 255, (y - size/2) / (size/2), (x - mean)/std
         return (im - meani) / stdi, (y - meany) / stdy, (x - mean)/std
 
     i1, y1, x1 = scale(imtr, ytrain, Xtrain)
-    #print np.mean(x1, axis=0), np.std(x1, axis=0)
-    #print np.mean(y1, axis=0), np.std(y1, axis=0)
+    #print( ( np.mean(x1, axis=0), np.std(x1, axis=0) ))
+    #print( ( np.mean(y1, axis=0), np.std(y1, axis=0) ))
     
     def unscale(y) :
         return y * (size/2) + size/2
         return (y * stdy) + meany
-    #print np.sum(ytrain - unscale(y1))
+    #print( ( np.sum(ytrain - unscale(y1)) ))
         
     return imtr, ytrain, Xtrain, mmm, imtst, ytest, Xtest, mmmt, (mean, std, meany, stdy, meani, stdi), scale, unscale, { 'im2' : (im2tr, im2tst), 'md' : (mdtr, mdtst), 'imsmall' :  (smalltr, smalltst)  } 
 
 if __name__ == "__main__":
     main()
     im, md, _, _ = load()
-    print im.shape
-    print len(md)
+    print( ( im.shape ))
+    print( ( len(md) ))
     #show(im, md, 10)
     
     """
@@ -457,31 +457,31 @@ if __name__ == "__main__":
     """
     
     feats = np.asarray([f.feats for f in md])
-    print feats.shape
+    print( ( feats.shape ))
 
     lmidx = np.asarray([ l in goodmarksnames for l in lmnames])
-    print lmidx
+    print( ( lmidx ))
     #goodmarksnames = lmnames
     idx = { k : i for i, k in enumerate(lmnames)}
     goodmarks = np.asarray([ feats[:,idx[mn],:] >= 0 for mn in goodmarksnames])
     mask = np.logical_not(np.sum(np.logical_not(goodmarks), axis=0)) # since not(not(a) or not(b)) = a and b
-    #print 'goodmarks:', goodmarks.shape
-    #print 'mask:', mask.shape
-    #print 'feats:', feats.shape
+    #print( ( 'goodmarks:', goodmarks.shape ))
+    #print( ( 'mask:', mask.shape ))
+    #print( ( 'feats:', feats.shape ))
     rfeats = feats[mask[:,0], :, :][:,lmidx,:]
-    #print im.shape
+    #print( ( im.shape ))
     rim = im[mask[:,0], :, :]
-    print rfeats.shape
-    print rim.shape
-    print 'goodmarks[mask]', goodmarks[:,mask[:,0],:].shape
+    print( ( rfeats.shape ))
+    print( ( rim.shape ))
+    print( ( 'goodmarks[mask]', goodmarks[:,mask[:,0],:].shape ))
     #plt.hist(np.asarray([np.sum(f.feats >= 0) / 2 for f in md]), bins = 100)
     #plt.show()
     
     show1(rim[1000, :,:,:], rfeats[1000, :, :])
 
     hog  = skimage.feature.hog(np.mean(rim[1000, :,:,:], axis=2), pixels_per_cell=(8, 8), cells_per_block=(2, 2), transform_sqrt=True)
-    #print 'hog shape ', hog.shape
+    #print( ( 'hog shape ', hog.shape ))
     lbp =  skimage.feature.local_binary_pattern(np.mean(rim[1000, :,:,:], axis=2), 6, 6)
-    #print lbp.shape
+    #print( ( lbp.shape ))
     lbp_code =  skimage.feature.multiblock_lbp(integral_image(np.mean(rim[1000, :,:,:], axis=2)), 0, 0, 90, 90)
-    #print lbp_code
+    #print( ( lbp_code ))
