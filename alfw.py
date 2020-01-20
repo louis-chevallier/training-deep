@@ -39,6 +39,7 @@ from skimage.transform import integral_image
 from skimage.feature import draw_multiblock_lbp
 
 alfw =  '/home/library03/data/aflw/data'
+alfw =  '.'
 
 #Change this paths according to your directories
 images_path = os.path.join(alfw, "flickr")
